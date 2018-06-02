@@ -8,8 +8,9 @@
 template <size_t N> 
 class StringFixed {
 public:
-    StringFixed(): str_len(0) { 
-        str[0] = '\0'; 
+    StringFixed() { 
+        str[N+1] = '\0';
+        str[str_len = 0] = '\0'; 
     }    
     StringFixed(const char *s, const size_t count = 0){
         if (count == 0){
@@ -113,6 +114,7 @@ public:
     
     bool concat(const char data){ 
         str[str_len++] = data;
+        str[str_len] = '\0';
         return true; 
     }
 
@@ -125,6 +127,7 @@ public:
             str[str_len + i] = data[i];
         }
         str_len += data_len;
+        str[str_len] = '\0';
         return true;
     }        
 
@@ -153,18 +156,18 @@ public:
         return res;
     }
 
-    int indexOf(const char c, const int from = 0){        
+    int indexOf(const char c, const size_t from = 0){        
         char *p = strchr(str+from, c);
         return (p != NULL ? p - str : -1);                
     }
 
-    int indexOf(const char* s, const int from = 0){        
+    int indexOf(const char* s, const size_t from = 0){        
         char *p = strstr(str+from, s);        
         return (p != NULL ? p - str : -1);        
     }
 
     template <size_t M> 
-    int indexOf(const StringFixed<M>& s, const int from = 0){    
+    int indexOf(const StringFixed<M>& s, const size_t from = 0){    
         return this->indexOf(s.c_str(), from);
     }
 
@@ -178,7 +181,7 @@ public:
         return -1;
     }
 
-    int lastIndexOf(const char* s, const int from = 0){            
+    int lastIndexOf(const char* s, const size_t from = 0){            
         int i;
         const int k_len = strlen(s);
         int k = k_len - 1;         
@@ -193,7 +196,7 @@ public:
     }
 
     template <size_t M> 
-    int lastIndexOf(const StringFixed<M>& s, const int from = 0){            
+    int lastIndexOf(const StringFixed<M>& s, const size_t from = 0){            
         int i;        
         int k = s.length() - 1;         
         for (i = str_len - from - 1; (i >= 0 && k >= 0); i--) {
@@ -206,13 +209,33 @@ public:
         return i;
     }
 
-    void remove(const int index, const int count = 1){
+    void remove(const size_t index, const size_t count = 1){
         int i;
         for (i = index; i + count < str_len; i++) {
             str[i] = str[i+count];
         }    
         str[i] = '\0';    
         str_len -= count;
+    }
+
+    template <size_t M> 
+    void copy(StringFixed<M>& src, size_t index = 0, size_t end_index = 0){        
+        char *begin = src.c_str() + index;
+        char *end = src.c_str() + (end_index != 0 ? end_index : src.length());
+        char c = *end;
+        *end = '\0';        
+        this->concat(begin);
+        *end = c;
+    }        
+
+    template <size_t M> 
+    void substring(StringFixed<M>& dest, size_t index = 0, size_t end_index = 0){
+        char *begin = str + index;
+        char *end = str + (end_index != 0 ? end_index : str_len);
+        char c = *end;
+        *end = '\0';        
+        dest.concat(begin);
+        *end = c;
     }
     
 private:    
