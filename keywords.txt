@@ -13,12 +13,17 @@ StringFixed	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
-substring	KEYWORD2
+c_str	KEYWORD2
+length	KEYWORD2
+charAt	KEYWORD2
 indexOf	KEYWORD2
 lastIndexOf	KEYWORD2
-contains	KEYWORD2
 equals	KEYWORD2
-compare	KEYWORD2
+compareTo	KEYWORD2
+concat	KEYWORD2
+endsWith	KEYWORD2
+startsWith	KEYWORD2
+remove	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
