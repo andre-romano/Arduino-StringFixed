@@ -105,15 +105,15 @@ public:
 
     char* c_str(){ return str; }
     
-    int compareTo(const String& str){ return this->compareTo(str.c_str()); }
+    int compareTo(const String str){ return this->compareTo(str.c_str()); }
     
     template <size_t M> 
-    int compareTo(const StringFixed<M>& str){ return this->compareTo(str.c_str()); }
+    int compareTo(const StringFixed<M> str){ return this->compareTo(str.c_str()); }
     int compareTo(const char* str){ return strcmp(this->str, str); }
 
     template <size_t M> 
-    bool equals(const StringFixed<M>& str2){ return (this->compareTo(str2) == 0); }
-    bool equals(const String& str2){ return (this->compareTo(str2) == 0); }    
+    bool equals(const StringFixed<M> str2){ return (this->compareTo(str2) == 0); }
+    bool equals(const String str2){ return (this->compareTo(str2) == 0); }    
     bool equals(const char* str2){ return (this->compareTo(str2) == 0); }
     
     bool concat(const char data){ 
@@ -134,17 +134,14 @@ public:
         str[str_len] = '\0';
         return true;
     }        
-
-    template <size_t M> 
-    bool concat(const StringFixed<M>& data){ return this->concat(data.c_str()); }                
+             
     template <size_t M> 
     bool concat(const StringFixed<M> data){ return this->concat(data.c_str()); }                
     
-    bool concat(const String data){ return this->concat(data.c_str()); }                
-    bool concat(const String& data){ return this->concat(data.c_str()); }                
+    bool concat(const String data){ return this->concat(data.c_str()); }                    
 
     template <size_t M> 
-    bool startsWith(const StringFixed<M>& str2){
+    bool startsWith(const StringFixed<M> str2){
         int i = 0;
         int j = 0;
         bool res = true;
@@ -155,7 +152,7 @@ public:
     }
 
     template <size_t M> 
-    bool endsWith(const StringFixed<M>& str2){
+    bool endsWith(const StringFixed<M> str2){
         int i = str_len - 1;
         int j = str2.length() - 1;
         bool res = true;
@@ -175,13 +172,11 @@ public:
         return (p != NULL ? p - str : -1);        
     }
 
-    template <size_t M> 
-    int indexOf(const StringFixed<M>& s, const size_t from = 0){ return this->indexOf(s.c_str(), from); }
+    
     template <size_t M> 
     int indexOf(const StringFixed<M> s, const size_t from = 0){ return this->indexOf(s.c_str(), from); }
     
     int indexOf(const String s, const size_t from = 0){ return this->indexOf(s.c_str(), from); }
-    int indexOf(const String& s, const size_t from = 0){ return this->indexOf(s.c_str(), from); }
 
     int lastIndexOf(const char c, const int from = 0){            
         int i;
@@ -208,12 +203,9 @@ public:
     }
 
     template <size_t M> 
-    int lastIndexOf(const StringFixed<M>& s, const size_t from = 0){ return this->lastIndexOf(s.c_str(), from); }
-    template <size_t M> 
     int lastIndexOf(const StringFixed<M> s, const size_t from = 0){ return this->lastIndexOf(s.c_str(), from); }
 
     int lastIndexOf(const String s, const size_t from = 0){ return this->lastIndexOf(s.c_str(), from); }
-    int lastIndexOf(const String& s, const size_t from = 0){ return this->lastIndexOf(s.c_str(), from); }
 
     void remove(const size_t index, const size_t count = 1){
         int i;
@@ -234,16 +226,6 @@ public:
         *end = c;
     }        
     
-    template <size_t M> 
-    void copy(StringFixed<M>& src, size_t index = 0, size_t end_index = 0){        
-        char *begin = src.c_str() + index;
-        char *end = src.c_str() + (end_index != 0 ? end_index : src.length());
-        char c = *end;
-        *end = '\0';        
-        this->concat(begin);
-        *end = c;
-    }        
-
     template <size_t M> 
     void substring(StringFixed<M>& dest, size_t index = 0, size_t end_index = 0){
         char *begin = str + index;
