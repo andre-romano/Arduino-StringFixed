@@ -1,0 +1,28 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+StringFixed	KEYWORD1
+
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+substring	KEYWORD2
+indexOf	KEYWORD2
+lastIndexOf	KEYWORD2
+contains	KEYWORD2
+equals	KEYWORD2
+compare	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+#POWER_EN_ADC	LITERAL1
+
