@@ -254,6 +254,18 @@ public:
         *end = c;
     }
     
+    int toInt(){
+        int i;
+        sscanf(str, "%d", &i);
+        return i;    
+    }
+
+    float toFloat(){
+        float i;
+        sscanf(str, "%f", &i);
+        return i;    
+    }
+    
 private:    
     char   str[N+1];    
     size_t str_len;
