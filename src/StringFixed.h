@@ -137,7 +137,10 @@ public:
 
     template <size_t M> 
     bool concat(const StringFixed<M>& data){ return this->concat(data.c_str()); }                
+    template <size_t M> 
+    bool concat(const StringFixed<M> data){ return this->concat(data.c_str()); }                
     
+    bool concat(const String data){ return this->concat(data.c_str()); }                
     bool concat(const String& data){ return this->concat(data.c_str()); }                
 
     template <size_t M> 
@@ -173,13 +176,12 @@ public:
     }
 
     template <size_t M> 
-    int indexOf(const StringFixed<M>& s, const size_t from = 0){    
-        return this->indexOf(s.c_str(), from);
-    }
+    int indexOf(const StringFixed<M>& s, const size_t from = 0){ return this->indexOf(s.c_str(), from); }
+    template <size_t M> 
+    int indexOf(const StringFixed<M> s, const size_t from = 0){ return this->indexOf(s.c_str(), from); }
     
-    int indexOf(const String& s, const size_t from = 0){    
-        return this->indexOf(s.c_str(), from);
-    }
+    int indexOf(const String s, const size_t from = 0){ return this->indexOf(s.c_str(), from); }
+    int indexOf(const String& s, const size_t from = 0){ return this->indexOf(s.c_str(), from); }
 
     int lastIndexOf(const char c, const int from = 0){            
         int i;
@@ -206,13 +208,12 @@ public:
     }
 
     template <size_t M> 
-    int lastIndexOf(const StringFixed<M>& s, const size_t from = 0){                    
-        return this->lastIndexOf(s.c_str(), from);
-    }
+    int lastIndexOf(const StringFixed<M>& s, const size_t from = 0){ return this->lastIndexOf(s.c_str(), from); }
+    template <size_t M> 
+    int lastIndexOf(const StringFixed<M> s, const size_t from = 0){ return this->lastIndexOf(s.c_str(), from); }
 
-    int lastIndexOf(const String& s, const size_t from = 0){                    
-        return this->lastIndexOf(s.c_str(), from);
-    }
+    int lastIndexOf(const String s, const size_t from = 0){ return this->lastIndexOf(s.c_str(), from); }
+    int lastIndexOf(const String& s, const size_t from = 0){ return this->lastIndexOf(s.c_str(), from); }
 
     void remove(const size_t index, const size_t count = 1){
         int i;
@@ -222,7 +223,17 @@ public:
         str[i] = '\0';    
         str_len -= count;
     }
-
+    
+    template <size_t M> 
+    void copy(StringFixed<M> src, size_t index = 0, size_t end_index = 0){        
+        char *begin = src.c_str() + index;
+        char *end = src.c_str() + (end_index != 0 ? end_index : src.length());
+        char c = *end;
+        *end = '\0';        
+        this->concat(begin);
+        *end = c;
+    }        
+    
     template <size_t M> 
     void copy(StringFixed<M>& src, size_t index = 0, size_t end_index = 0){        
         char *begin = src.c_str() + index;
