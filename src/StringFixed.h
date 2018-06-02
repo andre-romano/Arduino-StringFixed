@@ -105,12 +105,16 @@ public:
 
     char* c_str(){ return str; }
     
+    int compareTo(const String& str){ return this->compareTo(str.c_str()); }
+    
     template <size_t M> 
     int compareTo(const StringFixed<M>& str){ return this->compareTo(str.c_str()); }
     int compareTo(const char* str){ return strcmp(this->str, str); }
 
     template <size_t M> 
     bool equals(const StringFixed<M>& str2){ return (this->compareTo(str2) == 0); }
+    bool equals(const String& str2){ return (this->compareTo(str2) == 0); }    
+    bool equals(const char* str2){ return (this->compareTo(str2) == 0); }
     
     bool concat(const char data){ 
         str[str_len++] = data;
@@ -133,6 +137,8 @@ public:
 
     template <size_t M> 
     bool concat(const StringFixed<M>& data){ return this->concat(data.c_str()); }                
+    
+    bool concat(const String& data){ return this->concat(data.c_str()); }                
 
     template <size_t M> 
     bool startsWith(const StringFixed<M>& str2){
@@ -170,6 +176,10 @@ public:
     int indexOf(const StringFixed<M>& s, const size_t from = 0){    
         return this->indexOf(s.c_str(), from);
     }
+    
+    int indexOf(const String& s, const size_t from = 0){    
+        return this->indexOf(s.c_str(), from);
+    }
 
     int lastIndexOf(const char c, const int from = 0){            
         int i;
@@ -196,17 +206,12 @@ public:
     }
 
     template <size_t M> 
-    int lastIndexOf(const StringFixed<M>& s, const size_t from = 0){            
-        int i;        
-        int k = s.length() - 1;         
-        for (i = str_len - from - 1; (i >= 0 && k >= 0); i--) {
-            if (str[i] == s.charAt(k)){
-                k--;
-            } else {
-                k = s.length() - 1;
-            }
-        }        
-        return i;
+    int lastIndexOf(const StringFixed<M>& s, const size_t from = 0){                    
+        return this->lastIndexOf(s.c_str(), from);
+    }
+
+    int lastIndexOf(const String& s, const size_t from = 0){                    
+        return this->lastIndexOf(s.c_str(), from);
     }
 
     void remove(const size_t index, const size_t count = 1){
