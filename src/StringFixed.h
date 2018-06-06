@@ -207,8 +207,12 @@ public:
 
     int lastIndexOf(const String s, const size_t from = 0){ return this->lastIndexOf(s.c_str(), from); }
 
-    void remove(const size_t index, const size_t count = 1){
-        int i;
+    void remove(size_t index, size_t end_index = 0){
+        int count, i;
+        if (end_index == 0){
+            end_index = str_len;
+        }
+        count = end_index - index;
         for (i = index; i + count < str_len; i++) {
             str[i] = str[i+count];
         }    
